@@ -29,3 +29,46 @@ credit_card_data.info()
 # or checking the missing values same as above
 credit_card_data.isnull().sum()
 
+#distribution of legit and fraud tranc.
+credit_card_data['Class'].value_counts()
+
+#unstable data set. use 0--> for normal tranc. and 1--> for fraud.
+#seperate the data.
+legit = credit_card_data[credit_card_data.Class == 0]
+fraud = credit_card_data[credit_card_data.Class == 1]
+
+#printing how many data is valid or not
+print(legit.shape)
+print(fraud.shape)
+
+#statiscal mesure od data
+legit.Amount.describe()
+
+fraud.Amount.describe()
+
+#compare value of legit and fraud
+credit_card_data.groupby('Class').mean()
+
+#taking same value of normal trans as fraud for better result.
+legit_sample = legit.sample(n=492)
+
+#merge above two.
+new_dataset = pd.concat([legit_sample,fraud],axis =0)
+
+new_dataset.head()
+
+new_dataset.tail()
+
+new_dataset['Class'].value_counts()
+
+new_dataset.groupby('Class').mean()
+
+#split the data into features and targets
+x = new_dataset.drop(columns='Class',axis=1)
+y = new_dataset['Class']
+
+print(x)
+
+print(y)
+
+"""split the data into training data and testing data"""
