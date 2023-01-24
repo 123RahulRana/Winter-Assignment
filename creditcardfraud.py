@@ -72,3 +72,27 @@ print(x)
 print(y)
 
 """split the data into training data and testing data"""
+
+x_train,x_test,y_train,y_test = train_test_split(x,y,test_size = 0.2, stratify=y,random_state=2)
+
+print(x.shape, x_train.shape,x_test.shape)
+
+#model training 
+
+model = LogisticRegression()
+
+# training  the model on train data
+model.fit(x_train, y_train)
+
+#model evalution -->acurracy on train data
+x_train_predict = model.predict(x_train)
+training_data_accuracy = accuracy_score(x_train_predict,y_train)
+
+print('Accuracy on traing data is ',training_data_accuracy)
+
+# accuracy on test data
+x_test_predict = model.predict(x_test)
+test_data_accuracy = accuracy_score(x_test_predict, y_test)
+
+print('Accuracy on test data is ', test_data_accuracy)
+
